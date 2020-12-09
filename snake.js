@@ -32,11 +32,23 @@ export function expandSnake(amount){
 }
 
 
-export function onSnake(position) {
-    return snakeBody.some(segment => {
+export function onSnake(position, { ignoreHead = false } = {}) {
+    return snakeBody.some((segment, index) => {
+        if (ignoreHead && index === 0) return false;
         return equalPositions(segment, position);
     })
 }
+
+export function snakeIntersection() {
+    return onSnake(snakeBody[0], { ignoreHead: true });
+}
+
+
+
+export function getSnakeHead() {
+    return snakeBody[0];
+}
+
 
 //function that returns true if any snake segment is on the same spot as the food
 function equalPositions(pos1, pos2) {
