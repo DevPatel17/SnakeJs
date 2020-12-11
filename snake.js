@@ -27,11 +27,12 @@ export function draw(gameBoard) {
     })
 }
 
+//grow snake every time snake is on food
 export function expandSnake(amount){
     newSegments += amount;
 }
 
-
+//find if spot is located at same coordinate as snake body
 export function onSnake(position, { ignoreHead = false } = {}) {
     return snakeBody.some((segment, index) => {
         if (ignoreHead && index === 0) return false;
@@ -39,6 +40,7 @@ export function onSnake(position, { ignoreHead = false } = {}) {
     })
 }
 
+//check if snake head is anywhere on the snake body (excluding head)
 export function snakeIntersection() {
     return onSnake(snakeBody[0], { ignoreHead: true });
 }
@@ -47,6 +49,11 @@ export function snakeIntersection() {
 
 export function getSnakeHead() {
     return snakeBody[0];
+}
+
+export function getSnakeLength(){
+//console.log("inside get snake length");
+    return snakeBody.length;
 }
 
 
@@ -58,8 +65,9 @@ function equalPositions(pos1, pos2) {
 
 function addSegments() {
     for (let i = 0; i < newSegments; i++) {
+        
         snakeBody.push({...snakeBody[snakeBody.length - 1]})
     }
-
     newSegments = 0;
 }
+
